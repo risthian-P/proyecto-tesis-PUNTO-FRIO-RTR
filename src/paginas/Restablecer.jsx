@@ -57,10 +57,19 @@ const Restablecer = () => {
     <div className="flex flex-col items-center justify-center">
       {Object.keys(mensaje).length > 0 && <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>}
       <h1 className="text-3xl font-semibold mb-2 text-center uppercase text-gray-500">Restablecimiento de Contraseña</h1> <img class="object-cover h-80 w-80 rounded-full border-4 border-solid border-slate-600" src={logobebidas} alt="image description"/>
-      
-      <small className="text-gray-400 block my-4 text-sm">Ingrese su nueva contraseña para continuar.</small>
+      {!tokenValido && 
+      <>
+        <button 
+          className='w-1/2 bg-[#67841e] text-white py-2 px-4 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-base'
+          onClick={()=>navigate('/login')}
+          >
+            Regresar a Inicio de sesión
+          </button>
+      </>
+      }
       {tokenValido &&
         <form className="w-full" onSubmit={handleSubmit}>
+          <small className="text-gray-400 block my-4 text-sm">Ingrese su nueva contraseña para continuar.</small>
           <div className="mb-1">
             <label className="mb-2 block text-sm font-semibold">Nueva Contraseña</label>
             <input
