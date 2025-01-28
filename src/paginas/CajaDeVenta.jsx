@@ -26,7 +26,7 @@ const CajaDeVenta = () => {
 
   return (
     <div>
-      <h1 className="font-black text-3xl sm:text-4xl text-gray-500">Caja de Venta</h1>
+      <h1 className="font-black text-3xl sm:text-4xl text-gray-500">Caja Registradora</h1>
       <hr className="my-2" />
 
       <p className="mb-4">Listo para realizar una venta</p>
@@ -57,14 +57,12 @@ const CajaDeVenta = () => {
         >
           {mostrarEnvases ? "Cajero" : "Gestionar Envases"}
         </button>
-
-        {/* Botón para ver factura */}
         <button
-          onClick={() => verFactura('12345')}
-          className="px-6 py-3 bg-[#695230] text-white rounded-md hover:bg-yellow-600 transition"
-        >
-          Ver Factura
-        </button>
+            onClick={() => verFactura('12345')}
+            className="px-6 py-3 mt-4 bg-[#695230] text-white rounded-md hover:bg-yellow-600 transition"
+          >
+            Ver Factura
+          </button>
       </div>
 
       {/* Modal para crear cliente */}
@@ -78,21 +76,21 @@ const CajaDeVenta = () => {
         <GestionEnvases />
       ) : mostrarTabla ? (
         <TablaClientes setMostrarTabla={setMostrarTabla} />
+      ) : mostrarFactura ? (
+        <div>
+          <Factura ventaId={ventaId} />
+          <button
+            onClick={ocultarFactura}
+            className="px-6 py-3 mt-4 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
+          >
+            Cerrar Factura
+          </button>
+        </div>
       ) : (
-        <PuntoDeVenta />
-      )}
-
-      {/* Mostrar la factura si el estado 'mostrarFactura' es true */}
-      {mostrarFactura && <Factura ventaId={ventaId} />}
-
-      {/* Botón para ocultar la factura */}
-      {mostrarFactura && (
-        <button
-          onClick={ocultarFactura}
-          className="px-6 py-3 mt-4 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
-        >
-          Cerrar Factura
-        </button>
+        <div>
+          <PuntoDeVenta />
+          
+        </div>
       )}
     </div>
   );
