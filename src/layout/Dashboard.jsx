@@ -24,8 +24,8 @@ const Dashboard = () => {
             <div className="flex-1 overflow-y-scroll p-8 bg-[#F7F3E9]">
                 <Outlet />
             </div>
-            <div className="bg-[#67841e] h-12">
-                <p className="text-center text-[#FFD700] leading-[2.9rem] underline">
+            <div className="bg-gradient-to-l from-[#2bb192] via-[#97b867] to-[#2bb192] h-12">
+                <p className="text-center text-white leading-[2.9rem] underline">
                     Todos los derechos reservados
                 </p>
             </div>
