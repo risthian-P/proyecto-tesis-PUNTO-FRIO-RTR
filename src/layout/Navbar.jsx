@@ -46,7 +46,7 @@ const Navbar = ({ userRole }) => {
     ];
 
     return (
-        <div className="bg-[#337bb3] flex justify-between items-center h-20 px-6 text-white relative">
+        <div className="bg-[#67841e] flex justify-between items-center h-20 px-6 text-white relative">
             <div className="flex items-center">
                 <button onClick={handleNav} className="md:hidden">
                     {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
@@ -62,9 +62,10 @@ const Navbar = ({ userRole }) => {
             <ul className="hidden md:flex space-x-6">
                 {links.map((link) => (
                     <li key={link.to}
-                    className={`p-4 rounded-xl duration-300 ${location.pathname.startsWith(link.to)
-                            ? 'bg-[#b2ffff] text-black'
-                            : 'hover:bg-[#b2ffff] hover:text-black'
+                    className={`p-4 rounded-xl duration-300 ${
+                        location.pathname.startsWith(link.to)
+                            ? 'bg-[#2bb192] text-black'
+                            : 'hover:bg-green-300 hover:text-black'
                     }`}>
                         <Link
                             to={link.to}
