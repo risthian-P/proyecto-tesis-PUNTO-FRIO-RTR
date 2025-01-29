@@ -29,24 +29,24 @@ const Navbar = ({ userRole }) => {
 
     const links = [
         { to: '/dashboard/listar', label: 'Inventario', icon: <AiOutlineDatabase /> },
-        { to: '/dashboard/CajaDeVenta', label: 'Caja registradora', icon:<AiOutlineCreditCard /> },
+        { to: '/dashboard/CajaDeVenta', label: 'Caja registradora', icon: <AiOutlineCreditCard /> },
         ...(userRole === "administrador"
             ? [
                 { to: '/dashboard/crear', label: 'Productos', icon: <AiOutlineAppstore /> },
-                { to: '/dashboard/register', label: 'Administración de usuarios', icon:<AiOutlineUsergroupAdd /> },
+                { to: '/dashboard/register', label: 'Administración de usuarios', icon: <AiOutlineUsergroupAdd /> },
             ]
             : [])
     ];
 
     const userOptions = [
-        { id: 1, text: 'Ver Perfil', to: '/dashboard/perfil', icon: <AiOutlineUser/> },
+        { id: 1, text: 'Ver Perfil', to: '/dashboard/perfil', icon: <AiOutlineUser /> },
         { id: 2, text: 'Actualizar Perfil', to: '/dashboard/actualizar-perfil', icon: <AiOutlineSetting /> },
         { id: 3, text: 'Actualizar Contraseña', to: '/dashboard/actualizar-contrasena', icon: <AiOutlineKey /> },
         { id: 4, text: 'Cerrar Sesión', route: '/logout', icon: <AiOutlineLogout />, onClick: handleLogout },
     ];
 
     return (
-        <div className="bg-[#67841e] flex justify-between items-center h-20 px-6 text-white relative">
+        <div className="bg-[#337bb3] flex justify-between items-center h-20 px-6 text-white relative">
             <div className="flex items-center">
                 <button onClick={handleNav} className="md:hidden">
                     {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
@@ -62,14 +62,11 @@ const Navbar = ({ userRole }) => {
             <ul className="hidden md:flex space-x-6">
                 {links.map((link) => (
                     <li key={link.to}
-                    className={`p-4 rounded-xl duration-300 ${
-                        location.pathname.startsWith(link.to)
-                            ? 'bg-[#2bb192] text-black'
-                            : 'hover:bg-green-300 hover:text-black'
-                    }`}>
-                        <Link
-                            to={link.to}
-                        >
+                        className={`p-4 rounded-xl duration-300 ${location.pathname.startsWith(link.to)
+                            ? 'bg-[#b2ffff] text-black'
+                            : 'hover:bg-[#b2ffff] hover:text-black'
+                        }`}>
+                        <Link to={link.to}>
                             {link.label}
                         </Link>
                     </li>
