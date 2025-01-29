@@ -1,94 +1,114 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import Mensaje from "../componets/Alertas/Mensaje";
 
-export const Forgot = () => {
-    const [mensaje, setMensaje] = useState({});
-    const [mail, setMail] = useState({ correo: "" });
+const Restablecer = () => {
+  const navigate = useNavigate();
+  const { token } = useParams();
+  const [form, setForm] = useState({
+    contrasenia: "",
+    confirmarContrasenia: "",
+  });
+  const [mensaje, setMensaje] = useState({});
+  const [tokenValido, setTokenValido] = useState(false);
 
-    const handleChange = (e) => {
-        setMail({
-            ...mail,
-            [e.target.name]: e.target.value,
-        });
-    };
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-        if (!mail.correo) {
-            setMensaje({ respuesta: "El correo es obligatorio", tipo: false });
-            setTimeout(() => setMensaje(""), 4000);
-            return;
-        }
+    if (form.contrasenia !== form.confirmarContrasenia) {
+      setMensaje({ respuesta: "Las contraseñas no coinciden", tipo: false });
+      return;
+    }
 
-        try {
-            const url = `${import.meta.env.VITE_BACKEND_URL}/recuperar-password`;
-            const respuesta = await axios.post(url, mail);
-            setMensaje({ respuesta: respuesta.data.msg, tipo: true });
-            setMail({ correo: "" });
-            setTimeout(() => setMensaje(""), 4000);
-        } catch (error) {
-            const mensajeError = error.response?.data?.msg || "Ocurrió un error inesperado";
-            setMensaje({ respuesta: mensajeError, tipo: false });
-            setTimeout(() => setMensaje(""), 4000);
-        }
-    };
+    try {
+      const url = `${import.meta.env.VITE_BACKEND_URL}/nuevo-password/${token}`;
+      const respuesta = await axios.post(url, { contrasenia: form.contrasenia });
+      setMensaje({ respuesta: respuesta.data.msg, tipo: true });
+      setTimeout(() => navigate("/login"), 3000);
+    } catch (error) {
+      setMensaje({ respuesta: error.response.data.msg, tipo: false });
+    }
+  };
 
-    return (
-        <div
-            className="flex justify-center items-center h-screen w-screen bg-cover bg-center"
-            style={{
-                backgroundImage: `url('/public/images/bottle-695375_1280.jpg')`,
-            }}
-        >
-            <div className="w-full max-w-md bg-black/80 p-6 rounded-md">
-                {/* Mensaje dinámico */}
-                {Object.keys(mensaje).length > 0 && (
-                    <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>
-                )}
+  const verifyToken = async () => {
+    try {
+      const url = `${import.meta.env.VITE_BACKEND_URL}/nuevo-password/${token}`;
+      await axios.get(url);
+      setTokenValido(true);
+    } catch (error) {
+      setMensaje({ respuesta: error.response.data.msg, tipo: false });
+    }
+  };
 
-                {/* Título */}
-                <h1 className="text-3xl font-semibold mb-4 text-center uppercase text-gray-300">
-                    Olvidaste tu contraseña
-                </h1>
-                <small className="text-gray-400 block mb-6 text-sm text-center">
-                    No te preocupes, ingresa el correo para recuperar la contraseña.
-                </small>
+  useEffect(() => {
+    verifyToken();
+  }, []);
 
-                {/* Formulario */}
-                <form onSubmit={handleSubmit}>
-                    <div className="mb-4">
-                        <label className="mb-2 block text-sm font-semibold text-gray-300">Correo</label>
-                        <input
-                            type="email"
-                            placeholder="Ingrese el correo de registro"
-                            className="block w-full rounded-md border border-gray-600 focus:border-gray-400 focus:outline-none focus:ring-1 focus:ring-gray-400 py-2 px-3 bg-neutral-800 text-gray-200"
-                            name="correo"
-                            value={mail.correo}
-                            onChange={handleChange}
-                        />
-                    </div>
+  return (
+    <div className="flex justify-center items-center h-screen w-screen bg-gradient-to-br from-[#b2ffff] via-[#59d8d4] to-[#337bb3]">
+      <div className="w-full max-w-md bg-white p-6 rounded-md shadow-lg">
+        {/* Mensaje dinámico */}
+        {Object.keys(mensaje).length > 0 && (
+          <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>
+        )}
 
-                    <div className="mb-6">
-                        <button className="w-full bg-gray-600 text-gray-300 border py-2 rounded-md hover:scale-105 duration-300 hover:bg-gray-700 hover:text-white">
-                            Enviar
-                        </button>
-                    </div>
-                </form>
+        {/* Título */}
+        <h1 className="text-3xl font-semibold mb-4 text-center uppercase text-gray-800">
+          Restablecimiento de Contraseña
+        </h1>
+        <small className="text-gray-600 block mb-6 text-sm text-center">
+          Ingrese su nueva contraseña para continuar.
+        </small>
 
-                {/* Redirección */}
-                <div className="text-sm flex justify-between items-center text-gray-300">
-                    <p>¿Ya tienes una cuenta?</p>
-                    <Link
-                        to="/login"
-                        className="py-2 px-4 bg-gray-600 text-gray-300 border rounded-md hover:scale-110 duration-300 hover:bg-gray-700 hover:text-white"
-                    >
-                        Iniciar sesión
-                    </Link>
-                </div>
+        {/* Formulario */}
+        {tokenValido && (
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <label className="mb-2 block text-sm font-semibold text-gray-800">
+                Nueva Contraseña
+              </label>
+              <input
+                type="password"
+                name="contrasenia"
+                value={form.contrasenia || ""}
+                onChange={handleChange}
+                placeholder="Ingrese su contraseña"
+                className="block w-full rounded-md border border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 py-2 px-3 bg-gray-100 text-gray-800"
+              />
             </div>
-        </div>
-    );
+
+            <div className="mb-6">
+              <label className="mb-2 block text-sm font-semibold text-gray-800">
+                Confirmar Contraseña
+              </label>
+              <input
+                type="password"
+                name="confirmarContrasenia"
+                value={form.confirmarContrasenia || ""}
+                onChange={handleChange}
+                placeholder="Repita su contraseña"
+                className="block w-full rounded-md border border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 py-2 px-3 bg-gray-100 text-gray-800"
+              />
+            </div>
+
+            <div className="mb-6">
+              <button className="py-2 w-full bg-blue-600 text-white border rounded-md hover:scale-105 duration-300 hover:bg-blue-700">
+                Restablecer Contraseña
+              </button>
+            </div>
+          </form>
+        )}
+      </div>
+    </div>
+  );
 };
+
+export default Restablecer;
