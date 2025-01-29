@@ -46,7 +46,7 @@ const Navbar = ({ userRole }) => {
     ];
 
     return (
-        <div className="bg-[#67841e] flex justify-between items-center h-20 px-6 text-white relative">
+        <div className="bg-[#337bb3] flex justify-between items-center h-20 px-6 text-white relative">
             <div className="flex items-center">
                 <button onClick={handleNav} className="md:hidden">
                     {nav ? <AiOutlineClose size={20} /> : <AiOutlineMenu size={20} />}
@@ -62,10 +62,9 @@ const Navbar = ({ userRole }) => {
             <ul className="hidden md:flex space-x-6">
                 {links.map((link) => (
                     <li key={link.to}
-                    className={`p-4 rounded-xl duration-300 ${
-                        location.pathname.startsWith(link.to)
-                            ? 'bg-[#2bb192] text-black'
-                            : 'hover:bg-green-300 hover:text-black'
+                    className={`p-4 rounded-xl duration-300 ${location.pathname.startsWith(link.to)
+                            ? 'bg-[#b2ffff] text-black'
+                            : 'hover:bg-[#b2ffff] hover:text-black'
                     }`}>
                         <Link
                             to={link.to}
@@ -82,18 +81,18 @@ const Navbar = ({ userRole }) => {
                     <img src="https://cdn-icons-png.flaticon.com/512/4715/4715329.png" alt="Usuario" className="w-10 h-10 rounded-full" />
                 </button>
                 {userMenuOpen && (
-                    <ul className="absolute right-0 mt-2 w-48 bg-[#2bb192] border rounded-lg shadow-lg">
+                    <ul className="absolute right-0 mt-2 w-48 bg-[#337bb3] border rounded-lg shadow-lg">
                         {userOptions.map((option) => (
                             <li
                                 key={option.id}
-                                className="flex items-center p-3 cursor-pointer hover:bg-green-300 hover:text-black rounded-lg"
+                                className="flex items-center p-3 cursor-pointer hover:bg-[#b2ffff] hover:text-black rounded-lg"
                                 onClick={option.onClick}
                             >
                                 <Link
                                     to={option.to}
                                     className="flex items-center hover:scale-110 duration-300"
                                 >
-                                {option.icon} <span className="ml-2">{option.text}</span>
+                                    {option.icon} <span className="ml-2">{option.text}</span>
                                 </Link>
                             </li>
                         ))}
@@ -102,7 +101,7 @@ const Navbar = ({ userRole }) => {
             </div>
 
             {/* Menú móvil */}
-            <div className={`fixed top-0 left-0 w-[40%] h-full bg-[#2bb192] border-r transition-transform duration-500 ${nav ? 'translate-x-0' : '-translate-x-full'}`}>
+            <div className={`fixed top-0 left-0 w-[40%] h-full bg-[#b2ffff] border-r transition-transform duration-500 ${nav ? 'translate-x-0' : '-translate-x-full'}`}>
                 <div className="flex justify-between items-center p-4">
                     <img src="https://res.cloudinary.com/dkhh1qdbr/image/upload/v1738133108/c9bcfadl6ejdm2ohhpdf.png" alt="Logo" className="w-10 h-10" />
                     <button onClick={handleNav} className="text-white">
@@ -114,7 +113,7 @@ const Navbar = ({ userRole }) => {
                         <li key={link.to} className='rounded-lg'>
                             <Link
                                 to={link.to}
-                                className="flex items-center p-3 cursor-pointer hover:bg-green-300 hover:text-black rounded-lg"
+                                className="flex items-center p-3 cursor-pointer hover:bg-[#b2ffff] hover:text-black rounded-lg"
                                 onClick={() => setNav(false)}
                             >
                                 {link.icon} <span className="ml-2">{link.label}</span>
