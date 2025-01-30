@@ -24,11 +24,12 @@ const Dashboard = () => {
             <div className="flex-1 overflow-y-scroll p-8 bg-[#F7F3E9]">
                 <Outlet />
             </div>
-            <div className="bg-gradient-to-l from-[#2bb192] via-[#97b867] to-[#2bb192] h-12">
+            <div className="bg-[#337bb3] h-15">
                 <p className="text-center text-white leading-[2.9rem] underline">
-                    Todos los derechos reservados
+                    © {new Date().getFullYear()} Punto Frío R.T.T. Todos los derechos reservados.
                 </p>
             </div>
+
         </div>
     );
 };
