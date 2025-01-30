@@ -1,6 +1,3 @@
-import logoDarkMode from '../assets/dark.png'
-import logoFacebook from '../assets/facebook.png'
-import logoinvitados from '../assets/82092848_l_normal_none.webp'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -8,43 +5,40 @@ export const LandinPage = () => {
     const [darkMode, setdarkMode] = useState(false)
     return (
         <div>
-            {/* Header */}
-            <header className="bg-[#337bb3] text-white py-6">
-                <div className="container mx-auto flex justify-between items-center">
-                    <img
-                        src="https://res.cloudinary.com/dkhh1qdbr/image/upload/v1738133108/c9bcfadl6ejdm2ohhpdf.png"
-                        alt="Punto Frío Logo"
-                        className="w-24 h-24"
-                    />
-                    <nav>
-                        <ul className="flex space-x-8">
-                            {/* Login Button */}
-                            <li>
-                                <Link
-                                    to="/login"
-                                    className="bg-[#2bb192] text-white py-2 px-6 rounded-full hover:bg-[#97b867] transition"
-                                >
-                                    Login
-                                </Link>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </header>
-
             {/* Hero Section */}
-            <section id="home" className="h-screen bg-cover bg-center" style={{ backgroundImage: "url('https://your-image-url.com')" }}>
-                <div className="flex justify-center items-center h-full bg-black bg-opacity-50">
-                    <div className="text-center text-white">
-                        <h1 className="text-5xl font-bold mb-4">Bienvenido a Punto Frío</h1>
-                        <p className="text-xl mb-6">Sistema de gestión de ventas e inventario para tu negocio de cervezas.</p>
+            <section 
+                id="home" 
+                className="h-screen bg-cover bg-center relative" 
+                style={{ backgroundImage: "url('https://res.cloudinary.com/dkhh1qdbr/image/upload/v1738198104/domoiid5dmes2qaequyu.jpg')" }}
+            >
+                <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+                <div className="flex justify-center items-center h-full text-center text-white relative z-10">
+                    <div>
+                        <h1 className="text-5xl font-extrabold mb-6 tracking-tight">Bienvenido al Punto Frío R.T.R.</h1>
+                        
+                        {/* Logo entre los textos */}
+                        <img
+                            src="https://res.cloudinary.com/dkhh1qdbr/image/upload/v1738133108/c9bcfadl6ejdm2ohhpdf.png"
+                            alt="Punto Frío Logo"
+                            className="w-36 h-36 mx-auto mb-6"
+                        />
+                        
+                        <p className="text-lg mb-8">Sistema de gestión de ventas e inventario para tu negocio de bebidas refrescantes.</p>
+                        
+                        {/* Login Button */}
+                        <Link
+                            to="/login"
+                            className="bg-[#59d8d4] text-black font-bold py-3 px-8 rounded-full hover:bg-[#b2ffff] transition-all duration-300 transform hover:scale-105"
+                        >
+                            Iniciar Sesión
+                        </Link>
                     </div>
                 </div>
             </section>
 
-            {/* Footer */}
-            <footer className="bg-[#337bb3] text-white py-4 text-center">
-                <p>© {new Date().getFullYear()} Punto Frío R.T.T. Todos los derechos reservados.</p>
+            {/* Footer - sin fondo, sobre la misma imagen */}
+            <footer className="text-white py-4 text-center absolute bottom-0 left-0 w-full bg-black bg-opacity-50">
+                <p className="text-sm">© {new Date().getFullYear()} Punto Frío R.T.T. Todos los derechos reservados.</p>
             </footer>
         </div>
     );
