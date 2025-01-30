@@ -99,7 +99,7 @@ const Navbar = ({ userRole }) => {
             </div>
 
             {/* Menú móvil */}
-            <div className={`fixed top-0 left-0 w-[40%] h-full bg-[#b2ffff] border-r transition-transform duration-500 ${nav ? 'translate-x-0' : '-translate-x-full'}`}>
+            <div className={`fixed top-0 left-0 w-[40%] h-full bg-[#337BB3] border-r transition-transform duration-500 ${nav ? 'translate-x-0' : '-translate-x-full'}`}>
                 <div className="flex justify-between items-center p-4">
                     <img src="https://res.cloudinary.com/dkhh1qdbr/image/upload/v1738133108/c9bcfadl6ejdm2ohhpdf.png" alt="Logo" className="w-10 h-10" />
                     <button onClick={handleNav} className="text-white">
