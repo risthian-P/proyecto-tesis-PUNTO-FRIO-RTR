@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { jsPDF } from "jspdf"; // Importar jsPDF
 import "jspdf-autotable"; // Importar la extensión autoTable
+import { AiFillEye } from "react-icons/ai";
 
 const Factura = () => {
   const [ventas, setVentas] = useState([]);
@@ -162,12 +163,7 @@ const Factura = () => {
                 <td className="border border-gray-300 p-2 text-center">{venta.fecha}</td>
                 <td className="border border-gray-300 p-2 text-center">${venta.total.toFixed(2)}</td>
                 <td className="border border-gray-300 p-2 text-center">
-                  <button
-                    className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700"
-                    onClick={() => obtenerVentaPorId(venta._id)}
-                  >
-                    Ver Factura
-                  </button>
+                  <AiFillEye className="cursor-pointer inline-block" size={30} onClick={() => obtenerVentaPorId(venta._id)}/>
                 </td>
               </tr>
             ))}
