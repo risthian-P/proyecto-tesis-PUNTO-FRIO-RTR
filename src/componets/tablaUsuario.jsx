@@ -6,7 +6,7 @@ import ActualizarUsuario from "./Modals/ActualizarUsuario";
 const TablaUsuarios = () => {
   const [usuarios, setUsuarios] = useState([]);
   const [pagina, setPagina] = useState(1);
-  const [limite] = useState(10);
+  const [limite] = useState(100);
   const [hayMas, setHayMas] = useState(true)
 
   const [modalOpen, setModalOpen] = useState(false);

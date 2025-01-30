@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import Mensaje from "./Alertas/Mensaje";
 
@@ -17,9 +17,9 @@ const PuntoDeVenta = () => {
 
   // Cargar productos desde el backend
   useEffect(() => {
-    const cargarProductos = async () => {
+  const cargarProductos = async () => {
       const token = localStorage.getItem("token");
-      const url = `${import.meta.env.VITE_BACKEND_URL}/productos`;
+      const url = `${import.meta.env.VITE_BACKEND_URL}/productos?limite=500`;
       const options = {
         headers: {
           "Content-Type": "application/json",
@@ -43,9 +43,11 @@ const PuntoDeVenta = () => {
   }, []);
 
   // Filtrar los productos según la búsqueda
-  const productosFiltrados = productosDisponibles.filter((producto) =>
-    producto.nombre.toLowerCase().includes(busqueda.toLowerCase())
-  );
+  const productosFiltrados = useMemo(() => {
+    return productosDisponibles.filter((producto) =>
+        producto.nombre.toLowerCase().includes(busqueda.toLowerCase())
+    );
+}, [productosDisponibles, busqueda]);
 
   const buscarCliente = async (cedula) => {
     if (!cedula) {

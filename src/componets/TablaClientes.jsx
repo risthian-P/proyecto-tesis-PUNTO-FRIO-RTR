@@ -5,7 +5,7 @@ import ActualizarCliente from "./Modals/ActualizarCliente";
 const TablaClientes = ({ setMostrarTabla }) => {
   const [clientes, setClientes] = useState([]);
   const [pagina, setPagina] = useState(1);
-  const [limite] = useState(10);
+  const [limite] = useState(900); //limite de registro
   const [hayMas, setHayMas] = useState(true);
   const [clienteSeleccionado, setClienteSeleccionado] = useState(null);
   const [mostrarModal, setMostrarModal] = useState(false);
