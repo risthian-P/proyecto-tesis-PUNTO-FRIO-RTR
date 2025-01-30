@@ -29,13 +29,17 @@ const Navbar = ({ userRole }) => {
 
     const links = [
         { to: '/dashboard/listar', label: 'Inventario', icon: <AiOutlineDatabase /> },
-        { to: '/dashboard/CajaDeVenta', label: 'Caja registradora', icon: <AiOutlineCreditCard /> },
         ...(userRole === "administrador"
             ? [
                 { to: '/dashboard/crear', label: 'Productos', icon: <AiOutlineAppstore /> },
                 { to: '/dashboard/register', label: 'Administración de usuarios', icon: <AiOutlineUsergroupAdd /> },
             ]
-            : [])
+            : []),
+        ...(userRole === "cajero" ? 
+            [
+                { to: '/dashboard/CajaDeVenta', label: 'Caja registradora', icon: <AiOutlineCreditCard /> },
+            ]:[]
+        )
     ];
 
     const userOptions = [

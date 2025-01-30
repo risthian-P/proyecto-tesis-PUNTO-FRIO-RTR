@@ -143,9 +143,10 @@ const Factura = () => {
   // Mostrar lista de ventas si no se ha seleccionado ninguna venta
   if (!ventaSeleccionada) {
     return (
-      <div className="max-w-4xl mx-auto p-8">
-        <h1 className="text-2xl font-bold text-center mb-6">Lista de Ventas</h1>
-        <table className="w-full mt-5 table-auto shadow-lg bg-white">
+      <div className="max-w-4xl mx-auto ">
+        <h1 className="text-2xl font-bold mb-2">Lista de Ventas</h1>
+        <div><span className="flex"><AiFillEye className="h-7 w-7 mr-2"/>Actualizar Rol</span></div>
+        <table className="w-full mt-2 table-auto shadow-lg bg-white">
           <thead className="bg-gray-800 text-slate-400">
             <tr>
               <th className="p-2">N°</th>

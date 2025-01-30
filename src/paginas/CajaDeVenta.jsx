@@ -1,17 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import PuntoDeVenta from "../componets/PuntoDeVenta";
-import CrearCliente from "../componets/Modals/CrearCliente";
 import TablaClientes from "../componets/TablaClientes";
 import GestionEnvases from "../componets/Modals/GestionEnvases";
 import Factura from "../componets/Factura"; // Importa el componente Factura
+import AuthContext from "../context/AuthProvider";
 
 const CajaDeVenta = () => {
-  const [mostrarModal, setMostrarModal] = useState(false); // Controla el modal
   const [mostrarTabla, setMostrarTabla] = useState(false); // Controla la tabla de clientes
   const [mostrarEnvases, setMostrarEnvases] = useState(false); // Controla la gestión de envases
   const [mostrarFactura, setMostrarFactura] = useState(false); // Controla la visualización de la factura
   const [ventaId, setVentaId] = useState(null); // ID de la venta que se va a mostrar
-
+  const {auth} = useContext(AuthContext)
   // Función para manejar la visualización de la factura
   const verFactura = (id) => {
     setVentaId(id); // Asignar el ID de la venta que se quiere mostrar
@@ -33,16 +32,12 @@ const CajaDeVenta = () => {
 
       {/* Botones para Crear Cliente, Ver Clientes y Gestionar Envases */}
       <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-4">
-        <button
-          onClick={() => setMostrarModal(true)}
-          className="px-6 py-3 bg-[#695230] text-white rounded-md hover:bg-blue-600 transition"
-        >
-          Crear Cliente
-        </button>
+        
         <button
           onClick={() => {
             setMostrarTabla(!mostrarTabla);
             setMostrarEnvases(false);
+            setMostrarFactura(false)
           }}
           className={`px-6 py-3 ${mostrarTabla ? "bg-gray-500" : "bg-[#695230]"} text-white rounded-md hover:${mostrarTabla ? "bg-gray-600" : "bg-green-600"} transition`}
         >
@@ -52,24 +47,23 @@ const CajaDeVenta = () => {
           onClick={() => {
             setMostrarEnvases(!mostrarEnvases);
             setMostrarTabla(false);
+            setMostrarFactura(false)
           }}
           className={`px-6 py-3 ${mostrarEnvases ? "bg-gray-500" : "bg-[#695230]"} text-white rounded-md hover:${mostrarEnvases ? "bg-gray-600" : "bg-purple-600"} transition`}
         >
           {mostrarEnvases ? "Cajero" : "Gestionar Envases"}
         </button>
-        <button
-            onClick={() => verFactura('12345')}
-            className="px-6 py-3 mt-4 bg-[#695230] text-white rounded-md hover:bg-yellow-600 transition"
-          >
-            Ver Factura
+        {auth.rol === "cajero" && (
+          <button
+            onClick={() => (mostrarFactura ? ocultarFactura() : verFactura('12345'))}
+            className={`px-6 py-3 mt-4 ${
+              mostrarFactura ? "bg-red-500 hover:bg-red-600" : "bg-[#695230] hover:bg-yellow-600"
+            } text-white rounded-md transition`}        
+            >
+            {mostrarFactura ? "Cerrar Factura" : "Ver Factura"}
           </button>
+        )}
       </div>
-
-      {/* Modal para crear cliente */}
-      <CrearCliente
-        mostrarModal={mostrarModal}
-        setMostrarModal={setMostrarModal}
-      />
 
       {/* Condicional para alternar entre vistas */}
       {mostrarEnvases ? (
@@ -79,17 +73,10 @@ const CajaDeVenta = () => {
       ) : mostrarFactura ? (
         <div>
           <Factura ventaId={ventaId} />
-          <button
-            onClick={ocultarFactura}
-            className="px-6 py-3 mt-4 bg-red-500 text-white rounded-md hover:bg-red-600 transition"
-          >
-            Cerrar Factura
-          </button>
         </div>
       ) : (
         <div>
           <PuntoDeVenta />
-          
         </div>
       )}
     </div>

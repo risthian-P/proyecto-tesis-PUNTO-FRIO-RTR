@@ -83,6 +83,7 @@ const TablaUsuarios = () => {
 
   return (
     <div className="overflow-x-auto">
+      <span className="flex justify-center"><MdChangeCircle className="h-7 w-7 text-blue-500 mr-2"/>Actualizar Rol</span>
       <table className="w-full mt-5 table-auto shadow-lg bg-white">
         <thead className="bg-gray-800 text-slate-400">
           <tr>
