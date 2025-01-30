@@ -4,6 +4,7 @@ import { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import Mensaje from "../componets/Alertas/Mensaje";
 import { useNavigate } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa"; // Importar el ícono de retroceso
 
 const Login = () => {
     const { auth, setAuth } = useContext(AuthContext);
@@ -84,6 +85,14 @@ const Login = () => {
                 {Object.keys(mensaje).length > 0 && (
                     <Mensaje tipo={mensaje.tipo}>{mensaje.respuesta}</Mensaje>
                 )}
+
+                {/* Botón de retroceso */}
+                <Link
+                    to="/"
+                    className="absolute top-4 left-4 text-gray-800 hover:text-blue-600"
+                >
+                    <FaArrowLeft size={24} />
+                </Link>
 
                 {/* Título */}
                 <h1 className="text-3xl font-semibold mb-4 text-center uppercase text-gray-800">
